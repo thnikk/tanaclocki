@@ -1,0 +1,28 @@
+{
+    "name": "NTPtimeESP", 
+    "repository": {
+        "url": "https://github.com/SensorsIot/NTPtimeESP.git", 
+        "type": "git"
+    }, 
+    "platforms": [
+        "espressif8266"
+    ], 
+    "frameworks": [
+        "arduino"
+    ], 
+    "version": "1.0.0", 
+    "authors": [
+        {
+            "maintainer": false, 
+            "name": "SensorsIOT", 
+            "url": "https://github.com/SensorsIot", 
+            "email": null
+        }
+    ], 
+    "keywords": [
+        "ntp", 
+        "time"
+    ], 
+    "id": 2057, 
+    "description": "Small library for ESP8266 which returns the actual time adjusted by time zone and summer time"
+}
