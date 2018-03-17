@@ -12,6 +12,8 @@
 ### To-do list
 
 - [ ] Clean up code (I don't think I'm even using the NTPClient lib)
-- [ ] Come up with a cleaner solution to the image arrays
-- [ ] Add image selection to the web server
+- [x] Come up with a cleaner solution to the image arrays
+- [x] Add image selection to the web server
+- [ ] Add info for girl/TZ choice
+- [ ] Allow only one value to be set at a time
 - [ ] I'm pretty sure Arizona has some half hour offset BS, so get that sorted out by being able to take a float from the web server
