@@ -17,7 +17,7 @@ setting the timezone. */
 #include <ESP8266WebServer.h>
 #include <EEPROM.h>
 
-#include <NTPClient.h>
+//#include <NTPClient.h>
 #include <NTPtimeESP.h>
 
 const char INDEX_HTML[] =
@@ -185,7 +185,7 @@ const unsigned char testArray[][512] PROGMEM = {
 // A UDP instance to let us send and receive packets over UDP
 //WiFiUDP udp;
 WiFiUDP ntpUDP;
-NTPClient timeClient(ntpUDP);
+// NTPClient timeClient(ntpUDP);
 
 NTPtime NTPch("time.nist.gov");
 strDateTime dateTime;
@@ -276,8 +276,20 @@ void setup(void) {
   EEPROM.begin(2);
   pinMode(D4, OUTPUT);
   digitalWrite(D4, HIGH);
+  //u8g2_SetI2CAddress(u8g2.getU8g2(), 0x78);
+
   u8g2.begin();
   u8g2.enableUTF8Print();		// enable UTF8 support for the Arduino print() function
+
+  u8g2.setFont(u8g2_font_b10_t_japanese1);  // all the glyphs of "こんにちは世界" are already included in japanese1: Lerning Level 1-6
+  u8g2.setFontDirection(0);
+  u8g2.firstPage();
+  do {
+
+    u8g2.setCursor(15, 15);
+    u8g2.print("Connecting...");
+
+  } while ( u8g2.nextPage() );
 
   /* Time keeping */
   Serial.begin(115200);
@@ -313,7 +325,7 @@ void setup(void) {
 
   */
 
-  timeClient.begin();
+  //timeClient.begin();
 
   server.on("/", handleRoot);
   server.onNotFound(handleNotFound);
@@ -330,7 +342,7 @@ void setup(void) {
     u8g2.print(WiFi.localIP());
 
   } while ( u8g2.nextPage() );
-  delay(5000);
+  delay(1000);
 }
 
 
@@ -339,7 +351,7 @@ byte blink = 0;
 
 void loop(){
 
-  timeClient.update();
+  //timeClient.update();
 
   dateTime = NTPch.getNTPtime(gmtOffset,dstState);
 
@@ -379,7 +391,6 @@ void loop(){
     if (hour > 12) {
       hour-=12;
       PM=1;
-      Serial.println(PM);
     }
 
     u8g2.setCursor(hText, 30);
@@ -397,8 +408,8 @@ void loop(){
     else u8g2.print("??:??");
 
     u8g2.setFont(u8g2_font_b10_t_japanese1);
-    if (PM == 1) { u8g2.print("ごご"); Serial.println("PM"); }
-    if (PM == 0) { u8g2.print("ごぜん"); Serial.println("AM"); }
+    if (PM == 1) u8g2.print("ごご");
+    if (PM == 0) u8g2.print("ごぜん");
     u8g2.setCursor(hText, 60);
     u8g2.print("です");
   } while ( u8g2.nextPage() );
